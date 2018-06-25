@@ -10,7 +10,7 @@ class Mdextract:
     def __init__(self, exif_data):
         self.exif_data = exif_data
 
-    #Returns a list of the decoded EXIF data. Accepts a image object's .get_exif().items() list, and a 'True'/'False'
+    #Returns a list of the decoded EXIF data. Accepts an image object's .get_exif().items() list, and a 'True'/'False'
     #for an option to print the list.
     def list_tag_names(self, list, print_flag):
         tag_list = []
@@ -20,6 +20,7 @@ class Mdextract:
             if print_flag:
                 print(tag, value, decoded)
         return tag_list
+    
     #Enables the user to obtain metadata by tag number. Tag number can be found using the list_tag_names() method.
     def get_by_tag_num(self, tag_number):
         return self.exif_data[tag_number]
