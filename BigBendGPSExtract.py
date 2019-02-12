@@ -5,16 +5,16 @@ import csv
 
 
 '''Initialize spreadsheet, prepare columns (filename, latitude, longitude, time).'''
-with open('photo_metadata.csv', 'wb') as f:
+with open('photo_metadata.csv', 'w') as f:
     fieldNames = ['Name','Date', 'Time', 'Latitude', 'Longitude', 'Photo']
-    writer = csv.DictWriter(f, fieldnames=fieldNames)
+    writer = csv.DictWriter(f, fieldnames=fieldNames, lineterminator='\n')
     writer.writeheader()
 
     '''For photo in the Big Bend file, get the metadata and convert GPS coordinates to minutes, degrees seconds'''
-    for photo in os.listdir('C:\Users\erg\Desktop\Python_Projects\Big_Bend_Geotagged_All\\'):
-        im = Image.open('C:\Users\erg\Desktop\Python_Projects\Big_Bend_Geotagged_All\\' + photo)
+    for photo in os.listdir('C:\\Users\\erg\\Desktop\\Python_Projects\\Big_Bend_Geotagged_Selected\\'):
+        im = Image.open('C:\\Users\\erg\\Desktop\\Python_Projects\\Big_Bend_Geotagged_Selected\\' + photo)
         info = im._getexif()
-
+        print(info)
         '''Initialize variables for metadata'''
         GPSDict = {}
         dateTime = ''
@@ -31,7 +31,7 @@ with open('photo_metadata.csv', 'wb') as f:
             date, time = dateTime.split(' ')
             '''If the tag is GPS information, convert to DMS format'''
             if decoded == 'GPSInfo':
-                print decoded, tag, value, photo
+                print(decoded, tag, value, photo)
                 for key in info[tag].keys():
                     GPStag = GPSTAGS.get(key, key)
                     GPSDict[GPStag] = info[tag][key]
@@ -53,4 +53,3 @@ with open('photo_metadata.csv', 'wb') as f:
 
                 '''Write to spreadsheet'''
                 writer.writerow({'Name': photo, 'Date': date, 'Time': time, 'Latitude': GPSLat, 'Longitude': -GPSLong, 'Photo': im})
-
