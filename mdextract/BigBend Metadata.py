@@ -4,14 +4,14 @@ import csv
 import mdextract as md
 
 '''Initialize spreadsheet, prepare columns (filename, latitude, longitude, time).'''
-with open('photo_metadata.csv', 'wb') as f:
+with open('photo_metadata.csv', 'w') as f:
     fieldNames = ['Name','Date', 'Time', 'Latitude', 'Longitude', 'Photo']
     writer = csv.DictWriter(f, fieldnames=fieldNames)
     writer.writeheader()
 
     '''For photo in the Big Bend file, get the metadata and convert GPS coordinates to minutes, degrees seconds'''
-    for photo in os.listdir('C:\Users\erg\Desktop\Python_Projects\Big_Bend_Geotagged_All\\'):
-        im = Image.open('C:\Users\erg\Desktop\Python_Projects\Big_Bend_Geotagged_All\\' + photo)
+for photo in os.listdir('C:\\Users\\erg\\Desktop\\Python_Projects\\Big_Bend_Geotagged_Selected\\'):
+        im = Image.open('C:\\Users\\erg\\Desktop\\Python_Projects\\Big_Bend_Geotagged_Selected\\' + photo)
         info = im._getexif()
         exiftrans = md.Mdextract(info)
         '''' Grab all EXIF tags. '''
